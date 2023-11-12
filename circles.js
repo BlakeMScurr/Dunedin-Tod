@@ -54,7 +54,7 @@ function unionCircles(circles) {
             throw new Error(`radii unequal: ${a.getRadius()} vs ${b.getRadius()}`)
         }
     }
-    let radius = a.getRadius()
+    let radius = circles[0].getRadius()
 
     let polygons = [circle_approximation(circles[0])]
     for (let k = 1; k < circles.length; k++) {

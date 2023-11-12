@@ -30,7 +30,6 @@ function draw_bus_heatmaps () {
         }
     }
 }
-draw_bus_heatmaps()
 document.getElementById("show-heatmaps").addEventListener('change', () => {
     if (document.getElementById("show-heatmaps").checked) {
         draw_bus_heatmaps()
@@ -84,3 +83,38 @@ document.getElementById("show-listings").addEventListener('change', () => {
 // unionCircles([a, b, c]).forEach((shape) => {
 //     shape.addTo(map)
 // })
+
+// draw bus heatmaps
+let shed_polygons = []
+function draw_walksheds (walk_shed_radius) {
+    for (var i = 0; i < full_routes.length; i++) {
+        let route = full_routes[i]
+        let circles = []
+        for (let j = 0; j < route.info.stops.length; j++) {
+            const stop = route.info.stops[j];
+            circles.push(L.circle([stop.coordinate.latitude, stop.coordinate.longitude], {
+                radius: walk_shed_radius,
+            }))
+        }
+        unionCircles(circles).forEach(polygon => {
+            polygon.setStyle({
+                stroke: false,
+                fillOpacity: route.info.runs_per_week / 1000
+            })
+            polygon.addTo(map)
+            shed_polygons.push(polygon)
+        }) 
+    }
+}
+
+draw_walksheds(document.getElementById("walkshed-radius").value)
+const react = () => {
+    shed_polygons.forEach(p => {
+        p.remove()
+    })
+    if (document.getElementById("show-walksheds").checked) {
+        draw_walksheds(document.getElementById("walkshed-radius").value)
+    }
+}
+document.getElementById("walkshed-radius").addEventListener('change', react)
+document.getElementById("show-walksheds").addEventListener('change', react)

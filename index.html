@@ -15,8 +15,13 @@
 <div id="control-panel">
     <input type="checkbox" id="show-listings" name="show-listings" />
     <label for="show-listings">Show TradeMe Listings</label>
-    <input type="checkbox" id="show-heatmaps" name="show-heatmaps" checked=true />
+    <input type="checkbox" id="show-heatmaps" name="show-heatmaps" />
     <label for="show-heatmaps">Show Bus Heatmaps</label>
+    <input type="checkbox" id="show-walksheds" name="show-walksheds" checked="true" />
+    <label for="show-walksheds">Show Bus Walksheds</label>
+    <input type="number" id="walkshed-radius" name="walkshed-radius" value="300" min="10" max="5000" />
+    <label for="walkshed-radius">Walkshed Radius</label>
+
 </div>
 <script type="text/javascript" src="full_routes.js"></script>
 <script type="text/javascript" src="listings.js"></script>
