@@ -21,7 +21,7 @@ function draw_bus_heatmaps () {
                 let circle = L.circle([stop.coordinate.latitude, stop.coordinate.longitude], {
                     fillOpacity: route.info.runs_per_week / 10000,
                     stroke: false,
-                    color: "#FF0000",
+                    color: "#0000FF",
                     radius: k * 120,
                 })
                 circle.addTo(map)
@@ -49,7 +49,7 @@ function draw_listings () {
         const listing = listings[i];
         let circle = L.circle([listing.latitude, listing.longitude], {
             stroke: false,
-            color: "#00F",
+            color: "#F00",
             radius: 30,
         })
         circle.bindPopup(`<a href=https://${listing.url}>See property for sale</a>`).openPopup();
@@ -67,3 +67,20 @@ document.getElementById("show-listings").addEventListener('change', () => {
         })
     }
 })
+
+
+// let a = L.circle([-45.8969111176772, 170.3674601790895], {
+//     color: "#00FF00",
+//     radius: 5000,
+// })
+// let b = L.circle([-45.92564721624198, 170.34198441004654], {
+//     color: "#00FF00",
+//     radius: 5000,
+// })
+// let c = L.circle([-45.99564721624198, 170.34198441004654], {
+//     color: "#00FF00",
+//     radius: 5000,
+// })
+// unionCircles([a, b, c]).forEach((shape) => {
+//     shape.addTo(map)
+// })
