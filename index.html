@@ -1,0 +1,58 @@
+<h1>Dunedin Transit Oriented Development</h1>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<style>
+    #map {
+        height: 100%;
+    }
+</style>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<div id="map"></div>
+<script type="text/javascript" src="full_routes.js"></script>
+<script type="text/javascript" src="listings.js"></script>
+<script>
+    console.log("hello!")
+    var map = L.map('map').fitBounds([
+        [-45.7969111176772, 170.5874601790895],
+        [-45.96564721624198, 170.34198441004654]
+    ]);
+
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    // draw bus routes
+    for (var i = 0; i < full_routes.length; i++) {
+        let route = full_routes[i]
+        for (let j = 0; j < route.info.stops.length; j++) {
+            const stop = route.info.stops[j];
+            for (let k = 0; k < 10; k++) {
+                let circle = L.circle([stop.coordinate.latitude, stop.coordinate.longitude], {
+                    fillOpacity: route.info.runs_per_week / 10000,
+                    stroke: false,
+                    color: "#F00",
+                    radius: 30 * k,
+                })
+                circle.addTo(map)
+            }
+        }
+    }
+
+    // draw listings
+    console.log(listings)
+    for (let i = 0; i < listings.length; i++) {
+        const listing = listings[i];
+        let circle = L.circle([listing.latitude, listing.longitude], {
+            stroke: false,
+            color: "#00F",
+            radius: 30,
+        })
+        circle.bindPopup(`<a href=https://${listing.url}>See property for sale</a>`).openPopup();
+        circle.addTo(map)
+
+
+    }
+</script>
